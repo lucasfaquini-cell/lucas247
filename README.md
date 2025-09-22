@@ -182,9 +182,6 @@
             padding: 15px;
             cursor: pointer;
             transition: transform 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .character-card:hover {
@@ -200,13 +197,6 @@
         .character-card p {
             margin: 0;
             font-size: 12px;
-        }
-        
-        .character-card img {
-            width: 80px;
-            height: 80px;
-            image-rendering: pixelated;
-            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -436,7 +426,6 @@
                 card.dataset.hero = key;
                 card.innerHTML = `
                     <h4>${heroData.name}</h4>
-                    <img src="${heroData.sprite}" alt="${heroData.name} sprite">
                     <p>HP: ${heroData.maxHp}</p>
                     <p>MP: ${heroData.maxMp}</p>
                 `;
@@ -458,4 +447,27 @@
 
             // Configura os sprites e nomes
             heroSpriteEl.style.backgroundImage = `url(${hero.sprite})`;
+            enemySpriteEl.style.backgroundImage = `url(${enemy.sprite})`;
+            heroNameEl.textContent = hero.name;
+            enemyNameEl.textContent = enemy.name;
 
+            initBattle();
+        }
+
+        function initBattle() {
+            logMessage(`Um ${enemy.name} selvagem apareceu!`);
+            updateUI();
+            toggleButtons(false);
+        }
+
+        // === EVENT LISTENERS ===
+        attackBtn.addEventListener("click", () => heroTurn("attack"));
+        magicBtn.addEventListener("click", () => heroTurn("magic"));
+        itemBtn.addEventListener("click", () => heroTurn("item"));
+        runBtn.addEventListener("click", () => heroTurn("run"));
+
+        // Inicia o menu de seleção
+        createCharacterCards();
+    </script>
+</body>
+</html>
